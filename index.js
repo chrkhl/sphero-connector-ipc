@@ -1,25 +1,18 @@
 #!/usr/bin/env node
-'use strict';
-
-const pkg = require('./package.json');
 const updateNotifier = require('update-notifier');
 const connector = require('./sphero-connector');
+const connectorConfig = require('./connector-config');
+const pkg = require('./package.json');
 const startServer = require('./server');
-const cosmiconfig = require('cosmiconfig');
 
 updateNotifier({ pkg }).notify();
 
-(async() => {
-  const foundConfig = await cosmiconfig('sphero-connector-ipc', { searchPlaces: [ 'package.json' ] }).search();
+(async () => {
+  const config = await connectorConfig.read();
 
-  if (!foundConfig) {
-    return console.error('config not found!');
+  if (config.connectOnStart) {
+    connector.connectToy(config.connectOnStart.toyType, config.connectOnStart.toyName);
   }
 
-  const connectorConfig = foundConfig.config;
-  console.log('config stuff', connectorConfig);
-
-  await connector.connectSpheroMini();
-  connector.setMainLedColor('#FFFFFF');
-  startServer(connector);
+  startServer(connector, config.serviceId);
 })();
