@@ -6,9 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "sphero-connector-ipc": "index.js"
+  },
   "author": "Christian Kühl",
   "license": "MIT",
   "dependencies": {
+    "args": "5.0.0",
     "node-ipc": "9.1.1"
   }
 }
