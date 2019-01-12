@@ -17,14 +17,20 @@ const isServiceIdValid = serviceId => {
 
 const getConnectOnStart = connectOnStart => {
   if (typeof connectOnStart !== 'object') {
+    console.warn(`connectOnStart is invalid (not an object)`);
+
     return null;
   }
 
   if (typeof connectOnStart.toyType !== 'string') {
+    console.warn(`connectOnStart.toyType is invalid (not a string)`);
+
     return null;
   }
 
   if (!isToySupported(connectOnStart.toyType)) {
+    console.warn(`connectOnStart.toyType with value '${connectOnStart.toyType}' not supported`);
+
     return null;
   }
 
