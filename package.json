@@ -13,6 +13,8 @@
   "license": "MIT",
   "dependencies": {
     "args": "5.0.0",
-    "node-ipc": "9.1.1"
+    "cosmiconfig": "5.0.7",
+    "node-ipc": "9.1.1",
+    "update-notifier": "2.5.0"
   }
 }
