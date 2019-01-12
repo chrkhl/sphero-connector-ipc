@@ -11,7 +11,7 @@ updateNotifier({ pkg }).notify();
   const config = await connectorConfig.read();
 
   if (config.connectOnStart) {
-    connector.connectToy(config.connectOnStart.toyType, config.connectOnStart.toyName);
+    await connector.connectToy(config.connectOnStart.toyType, config.connectOnStart.toyName);
   }
 
   startServer(connector, config.serviceId);
