@@ -1,5 +1,5 @@
 const cosmiconfig = require('cosmiconfig');
-const { isToySupported } = require('./sphero-connector');
+const { readConnectOnStartConfig } = require('./sphero-connector');
 
 const defaultConfig = {
   serviceId: 'sphero-ipc-server',
@@ -13,31 +13,6 @@ const isServiceIdValid = serviceId => {
   const sanitizedServiceId = serviceId.trim();
 
   return sanitizedServiceId.length >= 5 && sanitizedServiceId.length <= 30;
-};
-
-const getConnectOnStart = connectOnStart => {
-  if (typeof connectOnStart !== 'object') {
-    console.warn(`connectOnStart is invalid (not an object)`);
-
-    return null;
-  }
-
-  if (typeof connectOnStart.toyType !== 'string') {
-    console.warn(`connectOnStart.toyType is invalid (not a string)`);
-
-    return null;
-  }
-
-  if (!isToySupported(connectOnStart.toyType)) {
-    console.warn(`connectOnStart.toyType with value '${connectOnStart.toyType}' not supported`);
-
-    return null;
-  }
-
-  return {
-    toyType: connectOnStart.toyType,
-    toyName: typeof connectOnStart.toyName === 'string' ? connectOnStart.toyName : ''
-  };
 };
 
 const readConnectorConfig = async () => {
@@ -55,7 +30,7 @@ const readConnectorConfig = async () => {
 
   return {
     serviceId: foundConfig.config.serviceId,
-    connectOnStart: getConnectOnStart(foundConfig.config.connectOnStart)
+    connectOnStart: readConnectOnStartConfig(foundConfig.config)
   };
 };
 
