@@ -64,5 +64,6 @@ module.exports = {
   wake,
   sleep,
   setMainLedColor,
-  isToySupported: connector.isToySupported
+  isToySupported: connector.isToySupported,
+  readConnectOnStartConfig: connector.readConnectOnStartConfig
 };

@@ -1,11 +1,6 @@
 const cosmiconfig = require('cosmiconfig');
 const { readConnectOnStartConfig } = require('./sphero-connector');
 
-const defaultConfig = {
-  serviceId: 'sphero-ipc-server',
-  connectOnStart: null
-};
-
 const isServiceIdValid = serviceId => {
   if (typeof serviceId !== 'string') {
     return false;
@@ -16,20 +11,24 @@ const isServiceIdValid = serviceId => {
 };
 
 const readConnectorConfig = async () => {
-  const foundConfig = await cosmiconfig('sphero-connector-ipc', { searchPlaces: [ 'package.json' ]}).search();
+  const foundConfig = await cosmiconfig('sphero-connector', { searchPlaces: [ 'package.json' ]}).search();
 
   if (!foundConfig || !foundConfig.config) {
-    console.log('no config found -> using default config');
-
-    return defaultConfig;
+    throw new Error(`config 'sphero-connector' not found in package.json`);
   }
 
-  if (!isServiceIdValid(foundConfig.config.serviceId)) {
+  if (foundConfig.config.type !== 'ipc') {
+    throw new Error(`'sphero-connector' type is not set to 'ipc'`);
+  }
+
+  const serviceId = foundConfig.config.serviceId || 'sphero-ipc-server';
+
+  if (!isServiceIdValid(serviceId)) {
     throw new Error('serviceId is invalid (must be a string with 5 to 30 characters)');
   }
 
   return {
-    serviceId: foundConfig.config.serviceId,
+    serviceId,
     connectOnStart: readConnectOnStartConfig(foundConfig.config)
   };
 };
