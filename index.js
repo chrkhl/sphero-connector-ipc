@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 const updateNotifier = require('update-notifier');
-const connector = require('./sphero-connector');
-const connectorConfig = require('./connector-config');
 const pkg = require('./package.json');
-const startServer = require('./server');
+const connector = require('./src/sphero-connector');
+const { readConnectorConfig } = require('./src/config-reader');
+const { startServer } = require('./server');
 
 updateNotifier({ pkg }).notify();
 
 (async () => {
-  const config = await connectorConfig.read();
+  const config = await readConnectorConfig();
 
   if (config.connectOnStart) {
     await connector.connectToy(config.connectOnStart.toyType, config.connectOnStart.toyName);

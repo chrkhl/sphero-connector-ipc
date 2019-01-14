@@ -27,4 +27,6 @@ const startServer = (connector, serviceId) => {
   ipc.server.start();
 };
 
-module.exports = startServer;
+module.exports = {
+  startServer
+};
