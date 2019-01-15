@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:watch:coverage": "jest --coverage --watchAll",
     "lint": "eslint .",
     "lint:fix": "eslint ."
   },
@@ -20,6 +23,13 @@
   },
   "devDependencies": {
     "eslint": "5.12.0",
-    "eslint-config-es": "0.9.1"
+    "eslint-config-es": "0.9.1",
+    "jest": "23.6.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/jest-setup.js"
   }
 }
