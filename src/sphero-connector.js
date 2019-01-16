@@ -2,56 +2,69 @@ const connector = require('../../sphero-connector-core/index.js');
 
 let connectedToy = null;
 
-const connectSpheroMini = async () => {
-  console.log('received message \'connectSpheroMini\'');
-  connectedToy = await connector.connectSpheroMini();
+const isToyConnected = () => Boolean(connectedToy);
+
+const safeConnect = async connectAction => {
+  try {
+    connectedToy = await connectAction();
+
+    return isToyConnected();
+  } catch (error) {
+    console.error('connect failed', error);
+
+    return false;
+  }
 };
+
+const safeToyAction = toyAction => {
+  if (!isToyConnected()) {
+    console.error('toy action not possible -> no toy connected');
+
+    return false;
+  }
+
+  try {
+    toyAction();
+
+    return true;
+  } catch (error) {
+    console.error('toy action failed', error);
+
+    return false;
+  }
+};
+
+const connectSpheroMini = async () => await safeConnect(connector.connectSpheroMini);
 
 const connectSpheroMiniWithName = async name => {
-  console.log('received message \'connectSpheroMiniWithName\'');
-  connectedToy = await connector.connectSpheroMiniWithName(name);
+  const connectAction = async () => await connector.connectSpheroMiniWithName(name);
+
+  return await safeConnect(connectAction);
 };
 
-const connectLightningMcQueen = async () => {
-  console.log('received message \'connectLightningMcQueen\'');
-  connectedToy = await connector.connectLightningMcQueen();
-};
+const connectLightningMcQueen = async () => await safeConnect(connector.connectLightningMcQueen);
 
-const connectR2D2 = async () => {
-  console.log('received message \'connectR2D2\'');
-  connectedToy = await connector.connectR2D2();
-};
+const connectR2D2 = async () => await safeConnect(connector.connectR2D2);
 
-const connectBB9E = async () => {
-  console.log('received message \'connectBB9E\'');
-  connectedToy = await connector.connectBB9E();
-};
+const connectBB9E = async () => await safeConnect(connector.connectBB9E);
 
 const connectToy = async (toyType, toyName) => {
-  console.log('received message \'connectToy\'');
-  connectedToy = await connector.connectToy(toyType, toyName);
+  const connectAction = async () => await connector.connectToy(toyType, toyName);
+
+  return await safeConnect(connectAction);
 };
 
-const wake = () => {
-  console.log('received message \'wake\'');
-  if (connectedToy) {
-    connectedToy.wake();
-  }
-};
+const wake = () => safeToyAction(() => connectedToy.wake());
 
-const sleep = () => {
-  console.log('received message \'sleep\'');
-  if (connectedToy) {
-    connectedToy.sleep();
-  }
-};
+const sleep = () => safeToyAction(() => connectedToy.sleep());
 
 const setMainLedColor = hexColor => {
-  console.log(`received message 'setMainLedColor' (hexColor: ${hexColor})`);
-  if (connectedToy) {
+  const toyAction = () => {
     connectedToy.wake();
     connectedToy.setMainLedColor(hexColor);
-  }
+  };
+
+  return safeToyAction(toyAction);
 };
 
 module.exports = {
