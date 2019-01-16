@@ -3,7 +3,7 @@ const updateNotifier = require('update-notifier');
 const pkg = require('./package.json');
 const connector = require('./src/sphero-connector');
 const { readConnectorConfig } = require('./src/config-reader');
-const { startServer } = require('./server');
+const { startServer } = require('./src/server');
 
 updateNotifier({ pkg }).notify();
 
