@@ -6,6 +6,7 @@ jest.mock('../../sphero-connector-core/index.js', () => ({
   connectSpheroMiniWithName: jest.fn(),
   connectLightningMcQueen: jest.fn(),
   connectR2D2: jest.fn(),
+  connectR2Q5: jest.fn(),
   connectBB9E: jest.fn(),
   connectToy: jest.fn(),
   wake: jest.fn(),
@@ -25,6 +26,7 @@ describe('sphero-connector', () => {
     core.connectSpheroMiniWithName.mockReset();
     core.connectLightningMcQueen.mockReset();
     core.connectR2D2.mockReset();
+    core.connectR2Q5.mockReset();
     core.connectBB9E.mockReset();
     core.connectToy.mockReset();
     core.wake.mockReset();
@@ -100,6 +102,23 @@ describe('sphero-connector', () => {
     it('returns true when toy found', async () => {
       core.connectR2D2.mockResolvedValue(exampleToy);
       expect(await connector.connectR2D2()).toBe(true);
+    });
+  });
+
+  describe('connectR2Q5', () => {
+    it('returns false when no toy found', async () => {
+      core.connectR2Q5.mockResolvedValue(null);
+      expect(await connector.connectR2Q5()).toBe(false);
+    });
+
+    it('returns false when toy scanning throws error', async () => {
+      core.connectR2Q5.mockRejectedValue(null);
+      expect(await connector.connectR2Q5()).toBe(false);
+    });
+
+    it('returns true when toy found', async () => {
+      core.connectR2Q5.mockResolvedValue(exampleToy);
+      expect(await connector.connectR2Q5()).toBe(true);
     });
   });
 

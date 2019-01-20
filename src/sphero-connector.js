@@ -46,6 +46,8 @@ const connectLightningMcQueen = async () => await safeConnect(connector.connectL
 
 const connectR2D2 = async () => await safeConnect(connector.connectR2D2);
 
+const connectR2Q5 = async () => await safeConnect(connector.connectR2Q5);
+
 const connectBB9E = async () => await safeConnect(connector.connectBB9E);
 
 const connectToy = async (toyType, toyName) => {
@@ -72,6 +74,7 @@ module.exports = {
   connectSpheroMiniWithName,
   connectBB9E,
   connectR2D2,
+  connectR2Q5,
   connectLightningMcQueen,
   connectToy,
   wake,

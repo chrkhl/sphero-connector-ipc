@@ -15,6 +15,8 @@ const startServer = (connector, serviceId) => {
 
     ipc.server.on('connectR2D2', connector.connectR2D2);
 
+    ipc.server.on('connectR2Q5', connector.connectR2Q5);
+
     ipc.server.on('connectBB9E', connector.connectBB9E);
 
     ipc.server.on('wake', connector.wake);
