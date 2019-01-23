@@ -28,6 +28,7 @@
     "update-notifier": "2.5.0"
   },
   "devDependencies": {
+    "coveralls": "3.0.2",
     "eslint": "5.12.0",
     "eslint-config-es": "0.9.1",
     "jest": "23.6.0"
