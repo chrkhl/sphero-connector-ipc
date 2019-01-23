@@ -32,12 +32,6 @@
     "eslint-config-es": "0.9.1",
     "jest": "23.6.0"
   },
-  "sphero-connector": {
-    "type": "ipc",
-    "connectOnStart": {
-      "toyType": "SpheroMini"
-    }
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.js"
