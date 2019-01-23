@@ -1,7 +1,7 @@
 {
   "name": "sphero-connector-ipc",
   "version": "0.0.1",
-  "description": "A small CLI tool to run an IPC server for connecting and controlling Sphero toys via IPC messages",
+  "description": "A small CLI tool to run an IPC service for connecting and controlling Sphero toys via IPC messages",
   "author": "Christian Kühl",
   "license": "MIT",
   "repository": {
