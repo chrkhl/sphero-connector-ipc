@@ -1,7 +1,7 @@
 const connector = require('../src/sphero-connector');
-const core = require('../../sphero-connector-core/index.js');
+const core = require('sphero-connector-core');
 
-jest.mock('../../sphero-connector-core/index.js', () => ({
+jest.mock('sphero-connector-core', () => ({
   connectSpheroMini: jest.fn(),
   connectSpheroMiniWithName: jest.fn(),
   connectLightningMcQueen: jest.fn(),

@@ -1,6 +1,9 @@
 const cosmiconfig = require('cosmiconfig');
 const { readConnectorConfig } = require('../src/config-reader');
 
+jest.mock('sphero-connector-core', () => ({
+  readConnectOnStartConfig: jest.fn().mockReturnValue(null)
+}));
 jest.mock('cosmiconfig', () => jest.fn());
 
 describe('config-reader', () => {

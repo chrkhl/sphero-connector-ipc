@@ -1,30 +1,42 @@
 {
   "name": "sphero-connector-ipc",
   "version": "0.0.1",
-  "description": "",
+  "description": "A small CLI tool to run an IPC server for connecting and controlling Sphero toys via IPC messages",
+  "author": "Christian Kühl",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrkhl/sphero-connector-ipc.git"
+  },
   "main": "index.js",
+  "bin": {
+    "sphero-connector-ipc": "index.js"
+  },
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:watch:coverage": "jest --coverage --watchAll",
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint .",
     "lint:fix": "eslint ."
   },
-  "bin": {
-    "sphero-connector-ipc": "index.js"
-  },
-  "author": "Christian Kühl",
-  "license": "MIT",
   "dependencies": {
     "cosmiconfig": "5.0.7",
     "node-ipc": "9.1.1",
+    "sphero-connector-core": "0.0.4",
     "update-notifier": "2.5.0"
   },
   "devDependencies": {
     "eslint": "5.12.0",
     "eslint-config-es": "0.9.1",
     "jest": "23.6.0"
+  },
+  "sphero-connector": {
+    "type": "ipc",
+    "connectOnStart": {
+      "toyType": "SpheroMini"
+    }
   },
   "jest": {
     "collectCoverageFrom": [

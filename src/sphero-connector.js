@@ -1,4 +1,4 @@
-const connector = require('../../sphero-connector-core/index.js');
+const connector = require('sphero-connector-core');
 
 let connectedToy = null;
 
