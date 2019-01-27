@@ -1,6 +1,6 @@
 {
   "name": "sphero-connector-ipc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A small CLI tool to run an IPC service for connecting and controlling Sphero toys via IPC messages",
   "keywords": [
     "cli",
